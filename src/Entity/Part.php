@@ -2,11 +2,11 @@
 
 namespace App\Entity;
 
-use App\Repository\PortionRepository;
+use App\Repository\PartRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: PortionRepository::class)]
-class Portion
+#[ORM\Entity(repositoryClass: PartRepository::class)]
+class Part
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

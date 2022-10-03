@@ -19,7 +19,7 @@ class Category
     private ?string $name = null;
 
     #[ORM\Column(length: 255, nullable: true)]
-    private ?string $picto = null;
+    private ?string $pictogram = null;
 
     #[ORM\ManyToMany(targetEntity: Recipe::class, mappedBy: 'categories')]
     private Collection $recipes;
@@ -46,14 +46,14 @@ class Category
         return $this;
     }
 
-    public function getPicto(): ?string
+    public function getPictogram(): ?string
     {
-        return $this->picto;
+        return $this->pictogram;
     }
 
-    public function setPicto(?string $picto): self
+    public function setPictogram(?string $pictogram): self
     {
-        $this->picto = $picto;
+        $this->pictogram = $pictogram;
 
         return $this;
     }

@@ -2,26 +2,26 @@
 
 namespace App\Repository;
 
-use App\Entity\Portion;
+use App\Entity\Part;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Portion>
+ * @extends ServiceEntityRepository<Part>
  *
- * @method Portion|null find($id, $lockMode = null, $lockVersion = null)
- * @method Portion|null findOneBy(array $criteria, array $orderBy = null)
- * @method Portion[]    findAll()
- * @method Portion[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Part|null find($id, $lockMode = null, $lockVersion = null)
+ * @method Part|null findOneBy(array $criteria, array $orderBy = null)
+ * @method Part[]    findAll()
+ * @method Part[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PortionRepository extends ServiceEntityRepository
+class PartRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, Portion::class);
+        parent::__construct($registry, Part::class);
     }
 
-    public function save(Portion $entity, bool $flush = false): void
+    public function save(Part $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
@@ -30,7 +30,7 @@ class PortionRepository extends ServiceEntityRepository
         }
     }
 
-    public function remove(Portion $entity, bool $flush = false): void
+    public function remove(Part $entity, bool $flush = false): void
     {
         $this->getEntityManager()->remove($entity);
 
@@ -40,7 +40,7 @@ class PortionRepository extends ServiceEntityRepository
     }
 
 //    /**
-//     * @return Portion[] Returns an array of Portion objects
+//     * @return Part[] Returns an array of Part objects
 //     */
 //    public function findByExampleField($value): array
 //    {
@@ -54,7 +54,7 @@ class PortionRepository extends ServiceEntityRepository
 //        ;
 //    }
 
-//    public function findOneBySomeField($value): ?Portion
+//    public function findOneBySomeField($value): ?Part
 //    {
 //        return $this->createQueryBuilder('p')
 //            ->andWhere('p.exampleField = :val')

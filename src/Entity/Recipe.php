@@ -5,7 +5,6 @@ namespace App\Entity;
 use App\Repository\RecipeRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
@@ -19,11 +18,7 @@ class Recipe
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\ManyToOne(inversedBy: 'recipes')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $user = null;
-
-    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Ingredient::class, orphanRemoval: true)]
+    #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: ingredient::class, orphanRemoval: true)]
     private Collection $ingredients;
 
     #[ORM\Column]
@@ -36,16 +31,8 @@ class Recipe
     private Collection $steps;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
-    private ?Portion $portion = null;
-
-    #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $preparationTime = null;
-
-    #[ORM\Column(type: Types::TIME_MUTABLE)]
-    private ?\DateTimeInterface $cookingTime = null;
-
-    #[ORM\Column(type: Types::TIME_MUTABLE, nullable: true)]
-    private ?\DateTimeInterface $restTime = null;
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Part $part = null;
 
     #[ORM\Column]
     private ?int $difficulty = null;
@@ -62,6 +49,21 @@ class Recipe
     #[ORM\OneToMany(mappedBy: 'recipe', targetEntity: Comment::class, orphanRemoval: true)]
     private Collection $comments;
 
+    #[ORM\ManyToOne(inversedBy: 'recipes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Duration $preparationTime = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Duration $cookingTime = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?Duration $restTime = null;
+
     public function __construct()
     {
         $this->ingredients = new ArrayCollection();
@@ -69,6 +71,9 @@ class Recipe
         $this->categories = new ArrayCollection();
         $this->pictures = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->preparationTime = new ArrayCollection();
+        $this->cookingTime = new ArrayCollection();
+        $this->restTime = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -88,27 +93,15 @@ class Recipe
         return $this;
     }
 
-    public function getUser(): ?User
-    {
-        return $this->user;
-    }
-
-    public function setUser(?User $user): self
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
     /**
-     * @return Collection<int, Ingredient>
+     * @return Collection<int, ingredient>
      */
     public function getIngredients(): Collection
     {
         return $this->ingredients;
     }
 
-    public function addIngredient(Ingredient $ingredient): self
+    public function addIngredient(ingredient $ingredient): self
     {
         if (!$this->ingredients->contains($ingredient)) {
             $this->ingredients->add($ingredient);
@@ -118,7 +111,7 @@ class Recipe
         return $this;
     }
 
-    public function removeIngredient(Ingredient $ingredient): self
+    public function removeIngredient(ingredient $ingredient): self
     {
         if ($this->ingredients->removeElement($ingredient)) {
             // set the owning side to null (unless already changed)
@@ -184,50 +177,14 @@ class Recipe
         return $this;
     }
 
-    public function getPortion(): ?Portion
+    public function getPart(): ?Part
     {
-        return $this->portion;
+        return $this->part;
     }
 
-    public function setPortion(?Portion $portion): self
+    public function setPart(Part $part): self
     {
-        $this->portion = $portion;
-
-        return $this;
-    }
-
-    public function getPreparationTime(): ?\DateTimeInterface
-    {
-        return $this->preparationTime;
-    }
-
-    public function setPreparationTime(?\DateTimeInterface $preparationTime): self
-    {
-        $this->preparationTime = $preparationTime;
-
-        return $this;
-    }
-
-    public function getCookingTime(): ?\DateTimeInterface
-    {
-        return $this->cookingTime;
-    }
-
-    public function setCookingTime(\DateTimeInterface $cookingTime): self
-    {
-        $this->cookingTime = $cookingTime;
-
-        return $this;
-    }
-
-    public function getRestTime(): ?\DateTimeInterface
-    {
-        return $this->restTime;
-    }
-
-    public function setRestTime(?\DateTimeInterface $restTime): self
-    {
-        $this->restTime = $restTime;
+        $this->part = $part;
 
         return $this;
     }
@@ -336,6 +293,54 @@ class Recipe
                 $comment->setRecipe(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    public function getPreparationTime(): ?Duration
+    {
+        return $this->preparationTime;
+    }
+
+    public function setPreparationTime(Duration $preparationTime): self
+    {
+        $this->preparationTime = $preparationTime;
+
+        return $this;
+    }
+
+    public function getCookingTime(): ?Duration
+    {
+        return $this->cookingTime;
+    }
+
+    public function setCookingTime(Duration $cookingTime): self
+    {
+        $this->cookingTime = $cookingTime;
+
+        return $this;
+    }
+
+    public function getRestTime(): ?Duration
+    {
+        return $this->restTime;
+    }
+
+    public function setRestTime(?Duration $restTime): self
+    {
+        $this->restTime = $restTime;
 
         return $this;
     }
