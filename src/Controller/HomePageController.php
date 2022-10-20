@@ -10,7 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class HomePageController extends AbstractController
 {
-    #[Route('/', name: 'app_home_page')]
+    #[Route('/', name: 'homepage')]
 
     public function index(MailerInterface $mailer): Response
     {
