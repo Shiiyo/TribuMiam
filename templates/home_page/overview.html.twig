@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Overview{% endblock %}
+
+{% block body %}
+    <figure class="text-center">
+        <h1>TribuMiam</h1>
+        <h2><small class="text-muted">Partagez vos recettes au sein de votre Tribu</small></h2>
+        <a href={{"login"}}> <button class="btn btn-info">Se connecter</button></a>
+        <a href={{"register"}}><button class="btn btn-light">Créer un compte</button></a>
+    </figure>
+{% endblock %}
