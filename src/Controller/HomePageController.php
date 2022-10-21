@@ -14,7 +14,7 @@ class HomePageController extends AbstractController
 
     public function index(MailerInterface $mailer): Response
     {
-        return $this->render('home_page/index.html.twig', [
+        return $this->render('homepage.html.twig', [
             'controller_name' => 'HomePageController',
         ]);
     }

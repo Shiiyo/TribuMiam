@@ -1,0 +1,59 @@
+{% block navbar %}
+        <!-- Preloader -->
+        <div class="preloader">
+            <div class="wrapper-triangle">
+                <div class="pen">
+                <div class="line-triangle">
+                    <div class="triangle"></div>
+                    <div class="triangle"></div>
+                    <div class="triangle"></div>
+                    <div class="triangle"></div>
+                    <div class="triangle"></div>
+                    <div class="triangle"></div>
+                    <div class="triangle"></div>
+                </div>
+                <div class="line-triangle">
+                    <div class="triangle"></div>
+                    <div class="triangle"></div>
+                    <div class="triangle"></div>
+                    <div class="triangle"></div>
+                    <div class="triangle"></div>
+                    <div class="triangle"></div>
+                    <div class="triangle"></div>
+                </div>
+                <div class="line-triangle">
+                    <div class="triangle"></div>
+                    <div class="triangle"></div>
+                    <div class="triangle"></div>
+                    <div class="triangle"></div>
+                    <div class="triangle"></div>
+                    <div class="triangle"></div>
+                    <div class="triangle"></div>
+                </div>
+                </div>
+            </div>
+        </div>
+                
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <h1><a class="navbar-brand" href={{"homepage"}}>TribuMiam</a></h1>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <ul class="nav justify-content-end">
+                <li class="nav-item">
+                    <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Recherche" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Rechercher</button>
+                    </form>
+                </li>
+                <li class="nav-item">
+                    <a class="navbar-brand" href={{"homepage"}}><img src="img\profile-pic.png" alt="Profil" width="66" height="66"></a>
+                </li>
+                <li class="nav-item">
+                    <a href={{"logout"}}><button class="btn btn-outline-danger my-2 my-sm-0">Se déconnecter</button></a>
+                </li>
+            </ul>
+        </nav>
+{% endblock %}
