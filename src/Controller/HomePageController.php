@@ -9,7 +9,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class HomePageController extends AbstractController
 {
     #[Route('/overview', name: 'overview')]
-
     public function overview(): Response
     {
         return $this->render('home_page/overview.html.twig');
